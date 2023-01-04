@@ -42,13 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     #? my apps
-    
-    
+    'users',
     
     #? trirdpart apps
     'rest_framework',
     'drf_yasg',
     #todo, "debug_toolbar",
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -190,4 +191,14 @@ LOGGING = {
             # will not be handled by the django logger. 
         }, 
     }, 
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+REST_AUTH_SERIALIZERS = {
+    'TOKEN_SERIALIZER': 'users.serializer.CustomTokenSerializer',
 }
