@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+#todo, DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -48,11 +48,11 @@ INSTALLED_APPS = [
     #? trirdpart apps
     'rest_framework',
     'drf_yasg',
-    # "debug_toolbar",
+    #todo, "debug_toolbar",
 ]
 
 MIDDLEWARE = [
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #todo, "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,7 +83,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main.wsgi.application'
 
 
-# Database
+#todo, Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 # DATABASES = {
@@ -139,7 +139,7 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# INTERNAL_IPS = [ 
+#todo, INTERNAL_IPS = [ 
 #     "127.0.0.1", 
 # ]
 
@@ -168,7 +168,7 @@ LOGGING = {
     "handlers": { 
         "console": { 
             "class": "logging.StreamHandler", 
-            "formatter": "standard", 
+            # "formatter": "standard", 
             "level": "INFO", 
             "stream": "ext://sys.stdout", 
             }, 
