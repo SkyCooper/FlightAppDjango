@@ -184,7 +184,7 @@ LOGGING = {
         "django": { 
             "handlers": ["console", 'file'], 
             # log level describes the severity of the messages that the logger will handle.  
-            "level": config("DJANGO_LOG_LEVEL", "INFO"), 
+            "level": config("DJANGO_LOG_LEVEL"), 
             'propagate': True, 
             # If False, this means that log messages written to django.request  
             # will not be handled by the django logger. 
