@@ -4,12 +4,15 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 
-  #! yeni bir user oluşturulduğunda onun için token oluşturması için yazılan metod;
+  #! yeni bir user oluşturulduğunda ona token oluşturması için receiver dekoratoru ile yazılan metod;
   #! bu bize register olduktan sonra tekrar login sayfasına gitmeden login olmamızı sağlıyor.
 
 #? post_save , yani işlem/olay  bittikten sonra, yani user create edildikten sonra
 @receiver(post_save, sender=User)
 def create_Token(sender, instance=None, created=False, **kwargs):
+  #* created = False, eğer token oluşumuş ise True olur,
+  #* yani if created demek if True ise demektir,
+  
   if created:
     Token.objects.create(user=instance)
     
