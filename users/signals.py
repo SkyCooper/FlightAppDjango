@@ -8,6 +8,7 @@ from rest_framework.authtoken.models import Token
   #! bu bize register olduktan sonra tekrar login sayfasına gitmeden login olmamızı sağlıyor.
 
 #? post_save , yani işlem/olay  bittikten sonra, yani user create edildikten sonra
+#? sender=User, User tablosundan yeni user create edilince singnal gönder ve bunu reciver dekaratoru ile yakala
 @receiver(post_save, sender=User)
 def create_Token(sender, instance=None, created=False, **kwargs):
   #* created = False, eğer token oluşumuş ise True olur,

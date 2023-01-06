@@ -10,13 +10,14 @@ class RegisterAPI(CreateAPIView):
   serializer_class = RegisterSerializer
 
 #? register olunca token de bana dönsün diye; 
+#? bundan önce signal ile token oluşturma fonksiyonunu yazmak gerekiyor.; 
   def create(self, request, *args, **kwargs):
       serializer = self.get_serializer(data=request.data)
       serializer.is_valid(raise_exception=True)
       user = serializer.save()
       token = Token.objects.get(user=user)
       data = serializer.data
-      data["token"] = token.key
+      data["key"] = token.key
       #? burada data içine token field eklendi.
       headers = self.get_success_headers(serializer.data)
       return Response(data, status=status.HTTP_201_CREATED, headers=headers)
@@ -29,6 +30,7 @@ class RegisterAPI(CreateAPIView):
   #! yeni bir user oluşturulduğunda onun için token oluşturması için yazılan metod;
   #! bu bize register olduktan sonra tekrar login sayfasına gitmeden login olmamızı sağlıyor.
   #! bunu da user create ediliğinde dönen Response içine token field'nı ekleyerek yapıyor.
+  
   #* aşağıda yazılan  dj_09 Auth dersinden;
   # def create(self, request, *args, **kwargs):
   #   response = super().create(request, *args, **kwargs)

@@ -57,14 +57,30 @@ class RegisterSerializer(serializers.ModelSerializer):
     return user
   
 
+
 class UserTokenSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = ("id", "first_name", "last_name", "email")
 
+
+#? login olduğunda bana sadece token bilgisi dönüyor, 
+#? kullanıcının diğer bilgilerini de görmek için TokenSerializer'ı custimize ediyoruz, 
+#? field içine user bilsisnide koyuyoruz, 
 class CustomTokenSerializer(TokenSerializer):
-  user = UserTokenSerializer
+  #? fields içine eklediğimiz user bilgisini tanımladık,
+  #? onu da User modelini kullanıp yukarıda yazdığımız başka bir serializerden aldık,
+  user = UserTokenSerializer(read_only=True)
+  #? read_only=True yazmazsak user sadece id olarak gelir, açık olarak bilgiler görünmez.
+  
+  #* TokenSerializer.Meta, böyle yazarak onun Meta'sının da hepsini inherit ettik ve sadece fields'ını düzenledik.
   class Meta(TokenSerializer.Meta):
     fields = ("key", "user")
   
-  
+#! yeni custum bir serializer yazdık fakat, bunu kullan dememiz gerekiyor
+#! views ile uğraşmadan daha kolay bir yöntemi var
+#! settings, base.py içine aşağıdakini ekliyoruz;
+
+# REST_AUTH_SERIALIZERS = {
+#     'TOKEN_SERIALIZER': 'users.serializer.CustomTokenSerializer',
+# }
