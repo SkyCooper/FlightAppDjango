@@ -23,13 +23,20 @@ class PassengerSerializer(serializers.ModelSerializer):
 
 class ReservationSerializer(serializers.ModelSerializer):
   user = serializers.StringRelatedField()
-  # user_id = serializers.IntegerField()
+  # user_id = serializers.IntegerField() #! bu yapmadık çünkü o anda kim reservasyon create ediyorsa ordan çekicez.
   
+# ReservationSerializer'ı en basit hali ile yazıp bırakırsak dönen response sadece sayılardan/id'lerden olur.
+# bundan dolayı user ve flight sadece id olmasın, modelde tanımlanan str foksiyonundaki gibi görünsün diye
+# StringRelatedField() ile düzenleme yapıyoruz. fakat create için kullanılmayacağı için,
+# ...._id olarak yeniden tanımlama yapıp  IntegerField yapıyoruz ve fields içine ekliyoruz.
+
   flight = serializers.StringRelatedField()
   flight_id = serializers.IntegerField()
   
-  passenger = PassengerSerializer(many=True,
-                                  # required=False
+  # passenger 1,2,3 gigi değilde bilgileri ile görünsün diye yukarıda ayrıca bir PassengerSerializer yazdık,
+  # ve passenger değişkenini ondan gelen responsa atadık,
+  passenger = PassengerSerializer(many=True, # birden fazla objesi olduğundan
+                                  required=True
                                   )
   
   class Meta:
@@ -37,7 +44,6 @@ class ReservationSerializer(serializers.ModelSerializer):
     fields = (
         "id",
         "user",
-        # "user_id",
         "flight",
         "flight_id",
         "passenger"

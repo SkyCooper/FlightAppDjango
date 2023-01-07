@@ -2,7 +2,6 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from .serializers import FlighSerializer, ReservationSerializer, StaffFlightSerializer
 from .models import Flight, Reservation, Passenger
-from rest_framework.permissions import IsAdminUser
 from .permissions import IsStafforReadOnly
 from datetime import datetime, date
 
@@ -10,6 +9,10 @@ from datetime import datetime, date
 class FlightMVS(ModelViewSet):
   queryset = Flight.objects.all()
   serializer_class = FlighSerializer
+  
+  # admin olan bütün CRUD işlemlerini yapsın, client sadece görüntüleyebilsin (GET)
+  # böyle bir permission olmadığından, permissions.py oluşturup
+  # içine IsAdminUser dan faydalanıp Custom bir permission yazdık ve import edip kullandık
   permission_classes = (IsStafforReadOnly,)
   
   def get_serializer_class(self):
