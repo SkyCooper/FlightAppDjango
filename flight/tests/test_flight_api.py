@@ -98,11 +98,12 @@ class FlightTestCase(APITestCase):
 
     self.user.is_staff = True
     self.user.save()
-    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
-    response = self.client.put(
-      'flight/flights/1', data, format='json')
+    request = self.factory.put(
+      '/flight/flights/1/', data, HTTP_AUTHORIZATION=f'Token {self.token}')
+    response = FlightMVS.as_view(
+      {'put': 'update'})(request, pk='1')
     self.assertEqual(response.status_code, 200)
-    self.assertEqual(Flight.objects.get('flight_number'), 'aaa12333')
+    self.assertEqual(Flight.objects.get('flight_number'), '456ewd')
     
 
     
