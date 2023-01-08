@@ -38,6 +38,14 @@ class FlightMVS(ModelViewSet):
 class ReservationMVS(ModelViewSet):
   queryset = Reservation.objects.all()
   serializer_class = ReservationSerializer
+
+# Yukarıdaki hali ile her kullanıcı (admin veya normal) her rezervasyonu görüyor.
+# Admin olan (staff) herşeyi görsün, normal olan (client) sadece kendi rezervasyonun görsün diye değişiklik yapıyoruz,
+# burada permission kullanmıyoruz çüknkü, permission olunca görsün/görmesin gibi bir ayrım var,
+# filitreleme kullanıyoruz, çünkü her halükarda görecek ama filitreli görecek,(gerekli olan kadar görecek)
+# eğer staff ise bütün queryset'in taamamını görsün,
+# client ise; user'ı request yapan user'sa yani kendisi ise queryset içinden o kadarını görsün,
+
   
   def get_queryset(self):
     queryset = super().get_queryset()
