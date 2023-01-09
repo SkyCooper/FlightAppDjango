@@ -49,6 +49,10 @@ class ReservationMVS(ModelViewSet):
   
   def get_queryset(self):
     queryset = super().get_queryset()
+    # queryset = Reservation.objects.all() , aslında yukarıdaki ile bu aynı şey fakat dinamik olsun diye böyle kullandık,
+    
+    # self.context["request"].user, serializer tarafında user'a böyle ulaşıyorduk,
+    # fakat view tarafında self.request.user yeterli oluyor.
     if self.request.user.is_staff:
       return queryset
     return queryset.filter(user = self.request.user)
