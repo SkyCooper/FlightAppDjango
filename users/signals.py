@@ -4,8 +4,8 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 
-  #! yeni bir user oluşturulduğunda ona token oluşturması için receiver dekoratoru ile yazılan metod;
-  #! bu bize register olduktan sonra tekrar login sayfasına gitmeden login olmamızı sağlıyor.
+#! yeni bir user oluşturulduğunda ona token oluşturması için receiver dekoratoru ile yazılan metod;
+#! bu bize register olduktan sonra tekrar login sayfasına gitmeden login olmamızı sağlıyor.
 
 #? post_save , yani işlem/olay  bittikten sonra, yani user create edildikten sonra
 #? sender=User, User tablosundan yeni user create edilince singnal gönder ve bunu reciver dekaratoru ile yakala
